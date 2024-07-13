@@ -33,17 +33,21 @@ Some tools like Vortex or [Mod Organizer 2](https://github.com/ModOrganizer2/mod
 
 Note that these examples go from Windows to a Steam Deck, but you can create or activate snapshots on any platform.
 
-Making a snapshot on Windows
+### Making a snapshot on Windows
 ```
 python.exe ./openmw-snapshot-tool.py make --base-directory H:\mw-snapshots --snapshot-name Morrowind-20240712
 ```
 
-Activating the snapshot on your Steam Deck so that the default configuration now references the snapshot.
+### Running the snapshot on Steam Deck
+Let's say you made that snapshot on Windows and copied it over to your Steam Deck. You can make a new shell script like this on your Deck, name it something like `Morrowind-20240712.sh` and give it execute permissions with `chmod +x`. Add this script to Steam as a non-steam game, and use it to run OpenMW with this specific snapshot.
 ```
-python3 ./openmw-snapshot-tool.py activate --base-directory /home/deck/games/mw-snapshots --snapshot-name Morrowind-20240712 
+#!/bin/bash
+python3 ./openmw-snapshot-tool.py activate --base-directory /home/deck/games/mw-snapshots --snapshot-name Morrowind-20240712
+/usr/bin/flatpack run --command=openmw-launcher org.openmw.OpenMW
 ```
 
-Activating the snapshot so that it can be referenced by a OpenMW portable install (the default configuration will not be modified)
+### Using portable install
+Activating the snapshot so that it can be referenced by a OpenMW portable install. This way, the default configuration will not be modified.
 This is what it would look like for a normal Linux install. Doing this with flatpack could get tricky because of entitlements and how arguments are passed.
 ```
 # Assuming snapshot has been copied to ~/games/mw-snapshots/Morrowind-20240712
