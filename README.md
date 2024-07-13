@@ -1,6 +1,7 @@
 # openmw-snapshot-tool
 
 License: GPLv3 (see LICENSE for more information)
+
 Author: DandyTush
 
 ## Motivation
@@ -27,7 +28,23 @@ Some tools like Vortex or [Mod Organizer 2](https://github.com/ModOrganizer2/mod
 2. Run OpenMW, tests the game, and decide that the mods and settings are acceptable
 3. Run `openmw-snapshot-tool make ...` to capture this installation as a snapshot
 4. Move or copy the snapshot anywhere
-5. On any other device, run `openmw-snapshot-tool activate ...` to activate the snapshot. OpenMW on that device will now use the snapshot.
+5. On any other device, run `openmw-snapshot-tool activate ...` to activate the snapshot. OpenMW on that device will now use the snapshot.   
+
+### Continuing to mod an installation after making a snapshot
+
+After you run  `openmw-snapshot-tool activate ...` on any device (whether it was your original device or one that you copied the snapshot to), the OpenMW configurations will now point to the *snapshot* rather than the original game files.
+
+This means if you delete or move the snapshot, your game will break.
+
+It also means if you want to continue modding your game, you can make changes to the *snapshot's* data directory, while modifying OpenMW's config files. Then, if you're satisfied with those additional changes, feel free to make another snapshot.
+
+### Using OpenMW portable installs
+
+`openmw-snapshot-tool activate` will by default modify your primary OpenMW configurations. So running this command will have consequences.
+
+You can also tell `openmw-snapshot-tool` to create or update a configuration somewhere else. You should be able to use this in conjunction with OpenMW portable installs. That way you can activate snapshots to your heart's delight without impacting anything. There is an example below.
+
+Portable installs are tricky to use with Steam Deck / flatpacks but it should be possible.
 
 ## Examples
 
@@ -39,7 +56,7 @@ python.exe ./openmw-snapshot-tool.py make --base-directory H:\mw-snapshots --sna
 ```
 
 ### Running the snapshot on Steam Deck
-Let's say you made that snapshot on Windows and copied it over to your Steam Deck. You can make a new shell script like this on your Deck, name it something like `Morrowind-20240712.sh` and give it execute permissions with `chmod +x`. Add this script to Steam as a non-steam game, and use it to run OpenMW with this specific snapshot.
+Let's say you made that snapshot on Windows and copied it over to your Steam Deck. You can make a new shell script like this on your Deck, name it something like `Morrowind-20240712.sh` and give it execute permissions with `chmod +x`. Add this script to Steam as a non-steam game, and use it to run OpenMW with this specific snapshot. The author used this to easily have Starwind and Morrowind running side-by-side.
 ```
 #!/bin/bash
 python3 ./openmw-snapshot-tool.py activate --base-directory /home/deck/games/mw-snapshots --snapshot-name Morrowind-20240712
@@ -51,7 +68,7 @@ Activating the snapshot so that it can be referenced by a OpenMW portable instal
 This is what it would look like for a normal Linux install. Doing this with flatpack could get tricky because of entitlements and how arguments are passed.
 ```
 # Assuming snapshot has been copied to ~/games/mw-snapshots/Morrowind-20240712
-# PORTABLE_INSTALL_DIR can be anything, really
+# PORTABLE_INSTALL_DIR can be anywhere, really
 PORTABLE_INSTALL_DIR=~/games/mw-snapshots/Morrowind-20240712/portable-install
 mkdir -p $PORTABLE_INSTALL_DIR
 python3 ./openmw-snapshot-tool.py activate -b ~/games/mw-snapshots -n Morrowind-20240712 --openmw-config-dir $PORTABLE_INSTALL_DIR
@@ -63,7 +80,7 @@ openmw --replace=config --config $PORTABLE_INSTALL_DIR --user-data $PORTABLE_INS
 
 ## Installing openmw-snapshot-tool
 
-1. Install latest Python 3: https://www.python.org/downloads/ - For Windows users a portable install works very well with this tool.
+1. Install latest Python 3: https://www.python.org/downloads/ - For Windows users you don't have to fully install Python, you can also download a "Windows embeddable package" and use that to invoke the script.
 2. Download the `openmw-snapshot-tool.py` script from https://github.com/DandyTush/openmw-snapshot-tool
 3. Just run the tool using `python3`. There are no extra libraries to install, so `pip` is not necessary.
 
