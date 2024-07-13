@@ -46,14 +46,14 @@ python3 ./openmw-snapshot-tool.py activate --base-directory /home/deck/games/mw-
 Activating the snapshot so that it can be referenced by a OpenMW portable install (the default configuration will not be modified)
 
 ```
-# Assuming snapshot has been copied to /home/deck/games/mw-snapshots/Morrowind-20240712
+# Assuming snapshot has been copied to ~/games/mw-snapshots/Morrowind-20240712
 # PORTABLE_INSTALL_DIR can be anything, really
-PORTABLE_INSTALL_DIR=/home/deck/games/mw-snapshots/Morrowind-20240712/portable-install
+PORTABLE_INSTALL_DIR=~/games/mw-snapshots/Morrowind-20240712/portable-install
 mkdir -p $PORTABLE_INSTALL_DIR
-python3 ./openmw-snapshot-tool.py activate -b /home/deck/games/mw-snapshots -n Morrowind-20240712 --openmw-config-dir $PORTABLE_INSTALL_DIR
+python3 ./openmw-snapshot-tool.py activate -b ~/games/mw-snapshots -n Morrowind-20240712 --openmw-config-dir $PORTABLE_INSTALL_DIR
 
 # Now you can run OpenMW with:
-PORTABLE_INSTALL_DIR=/home/deck/games/mw-snapshots/Morrowind-20240712/portable-install
+PORTABLE_INSTALL_DIR=~/games/mw-snapshots/Morrowind-20240712/portable-install
 openmw --replace=config --config $PORTABLE_INSTALL_DIR --user-data $PORTABLE_INSTALL_DIR
 ```
 
