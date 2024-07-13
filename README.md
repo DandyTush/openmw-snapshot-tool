@@ -16,7 +16,7 @@ This tool is useful if you:
 
 As of version 0.48, OpenMW generally deals with one installation at a time, assuming that all of your mods are installed in one place. There is a concept of a "Content List" in the launcher, but this is just a way to toggle a subset of the mods you have installed.
 
-There is also a concept of a "portable install" in OpenMW in which you can point the launcher to different conguration and data directories. This tool is an alternative to portable installs and may provide some benefits on top of portable installs.
+There is also a concept of a "portable install" in OpenMW in which you can point the launcher to different conguration and data directories. `openmw-snapshot-tool` complements and can likely utilize this concept.
 
 Some tools like Vortex or [Mod Organizer 2](https://github.com/ModOrganizer2/modorganizer/releases) (MO2) can help you manage multiple modlists. MO2 is especially robust, and rather elegant in that it presents your mod installation as a virtual filesystem. I enjoy using MO2, but I wanted something slightly different. MO2 comes with its own complexity and its use is actually discouraged in modding-openmw.com (see: [modding-openmw.com FAQ](https://modding-openmw.com/faq/tooling) )
 
@@ -44,7 +44,7 @@ python3 ./openmw-snapshot-tool.py activate --base-directory /home/deck/games/mw-
 ```
 
 Activating the snapshot so that it can be referenced by a OpenMW portable install (the default configuration will not be modified)
-
+This is what it would look like for a normal Linux install. Doing this with flatpack could get tricky because of entitlements and how arguments are passed.
 ```
 # Assuming snapshot has been copied to ~/games/mw-snapshots/Morrowind-20240712
 # PORTABLE_INSTALL_DIR can be anything, really
@@ -67,7 +67,7 @@ openmw --replace=config --config $PORTABLE_INSTALL_DIR --user-data $PORTABLE_INS
 
 Snapshots are directories. The directories can be zipped, moved and copied wherever, then unzipped and activated.
 
-** When a snapshot is activated, the config files will point to data on the snapshot itself. If you activate then delete a snapshot, the game will not be playable. **
+**When a snapshot is activated, the config files will point to data on the snapshot itself. If you activate then delete a snapshot, the game will not be playable.**
 
 The snapshot directories contain:
 - A `delimiter` file that tells the tool which path separator was used (`\` or `/`) which is useful when activating snapshots on different platofrms.
